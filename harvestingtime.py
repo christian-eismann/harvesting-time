@@ -12,7 +12,10 @@ class district:
 
 
     def to_crop(self, crop):
-        self._apply_filter(self._create_filter(crop))
+        fltr = self._create_filter(crop)
+        filtered_indicators = self._apply_filter(fltr)
+
+        return filtered_indicators
 
 
     def _create_filter(self, crop):
