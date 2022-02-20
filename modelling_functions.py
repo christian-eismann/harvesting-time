@@ -39,7 +39,7 @@ def apply_growingseason(df, months, cropyear):
 # preciperation to create fictional data row for modeling later
 # typically used in a loop to create data sets for ranges from 0 to 1000mmm
 
-def compute_fict(X_poly, X_scal, X_mean, X_sd, newRR):
+def compute_fict(X_poly, X_scal, newRR):
 
     dx_p = X_poly
     dx_s = X_scal
@@ -56,27 +56,27 @@ def compute_fict(X_poly, X_scal, X_mean, X_sd, newRR):
 
     # [3]     x2 = RR
     x2_n  = new_rr #absolut
-    x2_s  = (x2_n - X_mean[0]) / X_sd[0] #scaled
+    x2_s  = (x2_n - x2_mn) / x2_sd #scaled
 
     # [15]  x2^2 = RR^2
     x22_n = x2_n**2 #absolut
-    x22_s = (x22_n - X_mean[1]) / X_sd[1] #scaled
+    x22_s = (x22_n - x22_mn) / x22_sd #scaled
 
     # [8]  x0 x2 = TT*RR
     x0x2_n = dx_p[1] * x2_n
-    x0x2_s = (x0x2_n - X_mean[2]) / X_sd[2]
+    x0x2_s = (x0x2_n - x0x2_mn) / x0x2_sd
 
     # [12] x1 x2 = SD*RR
     x1x2_n = dx_p[2] * x2_n
-    x1x2_s = (x1x2_n - X_mean[3]) / X_sd[3]
+    x1x2_s = (x1x2_n - x1x2_mn) / x1x2_sd
 
     # [16] x2 x3 = RR*OB
     x2x3_n = x2_n * dx_p[4]
-    x2x3_s = (x2x3_n - X_mean[4]) / X_sd[4]
+    x2x3_s = (x2x3_n - x2x3_mn) / x2x3_sd
 
     # [17] x2 x4 = RR*GB
     x2x4_n = x2_n * dx_p[5]
-    x2x4_s = (x2x4_n - X_mean[5]) / X_sd[5]
+    x2x4_s = (x2x4_n - x2x4_mn) / x2x4_sd
 
     dx_new = dx_s.copy()
     dx_new[3]  = x2_s
